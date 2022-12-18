@@ -14,26 +14,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val silniaRun = findViewById<Button>(R.id.Silniastart)
-        val silniaInput = findViewById<EditText>(R.id.Silniapodaj)
-
-        silniaRun.setOnClickListener{
-            val inputint = silniaInput.text.toString().toInt()
-            if (inputint > 10  || inputint < 0) {
-                val blad = "Zła liczba"
-                findViewById<TextView>(R.id.Silniawynik).text = (blad)
-            } else {
-                var liczbaZSilnia = 1
-                if (inputint == 0 || inputint == 1) {
-                    liczbaZSilnia = 1
-                } else {
-                    for (i in 2..inputint)
-                        liczbaZSilnia *= i
-                }
-                val text = liczbaZSilnia.toString()
-                findViewById<TextView>(R.id.Silniawynik).text = (text)
-            }
+        fun Silnia(input: Int): Int {
+            var SilniaW = 1
+            return if(input==0)
+                SilniaW
+            else
+                input*Silnia(input-1)
         }
+
+        findViewById<Button>(R.id.Silniastart).setOnClickListener {
+            var Silniaint = findViewById<EditText>(R.id.Silniapodaj).text.toString().toInt()
+            if(Silniaint>10 || Silniaint<0){
+                findViewById<TextView>(R.id.Silniawynik).text=("Zła liczba")
+            }
+            else findViewById<TextView>(R.id.Silniawynik).text=(Silnia(Silniaint).toString())
+        }
+
         var przesuniecieP = 3
         findViewById<Button>(R.id.PrzyciskP).setOnClickListener {
             if (przesuniecieP > 0){
